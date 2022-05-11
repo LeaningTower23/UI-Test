@@ -1,0 +1,64 @@
+from Rely.Rely_Element import *
+from Rely.Rely_AnalysisCases import *
+import datetime
+
+
+def change_href(driver, href):
+    href_data = GetTestCase().get_href()
+    if href in ("dispatch center", "load board"):
+        check_and_click(driver, 'xpath', href_data["dispatch"])
+    elif href in ("POD", "accessorials"):
+        check_and_click(driver, 'xpath', href_data["accounting"])
+        check_and_click(driver, 'xpath', href_data["pre-accounting"])
+    elif href in ("load", "invoice", "factored"):
+        check_and_click(driver, 'xpath', href_data["accounting"])
+        check_and_click(driver, 'xpath', href_data["account receivable"])
+    elif href in ("load", "invoice", "factored"):
+        check_and_click(driver, 'xpath', href_data["accounting"])
+        check_and_click(driver, 'xpath', href_data["account payable"])
+    elif href == "financial reports":
+        check_and_click(driver, 'xpath', href_data["reports"])
+    elif href in ("drivers", "dispatcher&management", "groups"):
+        check_and_click(driver, 'xpath', href_data["setup"])
+        check_and_click(driver, 'xpath', href_data["users&groups"])
+    elif href in ("tractor", "trailer"):
+        check_and_click(driver, 'xpath', href_data["setup"])
+        check_and_click(driver, 'xpath', href_data["equipment"])
+    elif href in ("customer", "contract", "vendor"):
+        check_and_click(driver, 'xpath', href_data["setup"])
+        check_and_click(driver, 'xpath', href_data["relations"])
+    elif href in ("company info", "setting-accounting", "integration", "factoring"):
+        check_and_click(driver, 'xpath', href_data["setup"])
+        check_and_click(driver, 'xpath', href_data["settings"])
+
+    check_and_click(driver, 'xpath', href_data[href])
+
+
+def change_title(driver, title):
+    print('*************Change title: ' + str(title) + '*****************')
+    title_data = GetTestCase().get_title()
+    button = title_data[0]
+    by = title_data[1]
+    value = title_data[2]
+    if title in ["upcoming", "in progress", "canceled"]:
+        print(by[2], value[2])
+        check_and_click(driver, by[2], value[2])
+
+    for i in range(0, len(button)):
+        if title == button[i]:
+            check_and_click(driver, by[i], value[i])
+
+
+def get_time_format(days):
+    cr = datetime.datetime.now()
+    after = (cr + datetime.timedelta(days=days)).strftime("%Y-%m-%d %H:%M")
+    return after
+
+
+def case_common(driver, test_data):
+        case_result = execute_method(driver, test_data)
+        if case_result is True:
+            return True
+        else:
+            print('Testcase false!')
+            return False
