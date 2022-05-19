@@ -89,51 +89,7 @@ class GetTestCase(object):
         title_data = [buttons, bys, values]
         return title_data
 
-    def get_data(self, sheet, case):
-        table = self.workbook.sheet_by_name(sheet)
-        row_num = table.nrows
-        col_num = table.ncols
-        s = []
-        key = table.row_values(0)  # 这是第一行数据，作为字典的key值
-
-        if row_num <= 1:
-            print("No data!")
-        else:
-            j = 1
-            for i in range(row_num - 1):
-                d = {}
-                values = table.row_values(j)
-
-                if values[0] == case:
-                    for x in range(col_num):
-                        d[key[x]] = values[x]
-                    s.append(d)
-                j += 1
-            return s
-
-    # def get_case_data(self, sheet):
-    #     table = self.workbook.sheet_by_name(sheet)
-    #     row_num = table.nrows
-    #     col_num = table.ncols
-    #     s = []
-    #     key = table.row_values(0)
-    #
-    #     if row_num <= 1:
-    #         print("No data!")
-    #     else:
-    #         j = 1
-    #         for i in range(row_num - 1):
-    #             d = {}
-    #             values = table.row_values(j)
-    #
-    #             for x in range(col_num):
-    #                 d[key[x]] = values[x]
-    #                 s.append(d)
-    #             j += 1
-    #         return s
-
 
 if __name__ == '__main__':
-    # result = GetTestCase().get_case_data('process test')
     GetTestCase().get_all_data()
 
