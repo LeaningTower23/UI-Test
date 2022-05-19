@@ -1,6 +1,5 @@
 from Rely.Rely_Element import *
 from Rely.Rely_AnalysisCases import *
-import datetime
 
 
 def change_href(driver, href):
@@ -49,15 +48,16 @@ def change_title(driver, title):
             check_and_click(driver, by[i], value[i])
 
 
-def get_time_format(days):
-    cr = datetime.datetime.now()
-    after = (cr + datetime.timedelta(days=days)).strftime("%Y-%m-%d %H:%M")
-    return after
+def case_to_menu(driver, memu_data, case_name):
+    keys = list(memu_data.keys())
+    for key in keys:
+        if key == case_name:
+            change_href(driver, memu_data[key])
 
 
 def case_common(driver, test_data):
-        case_result = execute_method(driver, test_data)
-        if case_result is True:
+        case_re = execute_method(driver, test_data)
+        if case_re is True:
             return True
         else:
             print('Testcase false!')
